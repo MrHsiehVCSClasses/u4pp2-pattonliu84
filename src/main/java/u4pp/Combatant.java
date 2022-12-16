@@ -1,11 +1,12 @@
 package u4pp;
 
 public class Combatant {
-    private String name;
-    private int maxHealth;
-    private int attack;
-    private int health;
+    public String name;
+    public int maxHealth;
+    public int attack;
+    public int health;
 
+    //Constructor
  public Combatant(String name, int maxHealth, int attack) {
     this.name = name;
     this.maxHealth = maxHealth;
@@ -29,28 +30,31 @@ public int getAttackPower() {
     return this.attack;
 }
 
+//Prevents health from being negative / above maxHealth
 public void setHealth(int health) {
-    if (health < 0) {
+    if (health > maxHealth) {
+        this.health = maxHealth;
+    }
+    else if (health < 0){
         this.health = 0;
     }
-    else if (health > maxHealth){
-        this.health = this.maxHealth;
+    else {
+        this.health = health;
     }
-    this.health = health;
 }
 
+//Prevents maxhealth from being negative
 public void setMaxHealth(int health){
     if (health <= 0){
-        this.health = 1;
-    }
-    
-    if (this.health > this.maxHealth){
-        this.health = maxHealth;
+        this.maxHealth = 1;
     } else {
         this.maxHealth = health;
+    } if (this.health > this.maxHealth){
+        this.health = maxHealth;
     }
 }
 
+//Attack power can't be negative
 public void setAttackPower(int attackPower) {
     if (attackPower < 0) {
         attackPower = 0;
@@ -58,15 +62,14 @@ public void setAttackPower(int attackPower) {
     this.attack = attackPower;
 }
 
+//Takes in positive damage
 public void takeDamage(int damage){
-    if (damage < 0){
-        damage = 0;
-    }
-    else {
-        setHealth(this.health - damage);
+    if (damage >= 0){
+        setHealth(health - damage);
     }
 }
 
+//Current health above 0, then true
 public boolean canFight() {
     if (health <= 0) {
         return false;
@@ -76,7 +79,7 @@ public boolean canFight() {
 }
 
 public String toString(){
-    return ("The character " + name + " " + "with attack " + attack + " " + "has health " + health + " and maximum health " + maxHealth);
+    return ("The combatant " + name + " " + "with attack " + attack + " " + "has health " + health + " and maximum health " + maxHealth);
 
 }
 
